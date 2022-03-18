@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,body{
+    font-family: 'Montserrat', sans-serif;
+    background: #FECA1B;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    transition: 0.5s;
+}
+  
+::-webkit-scrollbar-track {
+    background: #FECA1B;
+    transition: 0.5s;
+}
+  
+::-webkit-scrollbar-thumb {
+    background: #fff;
+    border-radius: 8px;
+    transition: 0.5s;
+}
+
+.pokemon-app{
+    max-width: 80%;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+.pokemon-app > h1{
+    font-size: 2.5rem;
+    color: #fff;
+}
+
+.pokemon-list-wrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+    height: 100%;
+    padding: 30px 0;
+}
+
