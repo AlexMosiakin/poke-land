@@ -9,7 +9,7 @@
 Склонируйте репозиторий
 
 ```sh
-git clone https://github.com/AlexMosiakin/hacker-news.git
+git clone https://github.com/AlexMosiakin/poke-land.git
 ```
 
 ### Настройка фронтенд части
