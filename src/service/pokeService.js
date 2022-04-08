@@ -23,4 +23,13 @@ export default class pokeService{
             console.log(error);
         }
     }
+
+    static async getPokeById(id){
+        try {
+            const responce = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+            return responce;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
