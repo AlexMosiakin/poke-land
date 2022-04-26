@@ -32,4 +32,5 @@ export default class pokeService{
             console.log(error);
         }
     }
+    
 }

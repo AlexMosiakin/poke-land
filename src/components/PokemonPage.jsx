@@ -19,12 +19,13 @@ function PokemonPage() {
             }
         }
     });
+
     const [isLoading, setLoading] = useState(false);
   
     const pokemonFetch = async () => {
       setLoading(true);
-      const responce = await pokeService.getPokeById(id);
-      setPokemon({...pokemon, ...responce.data});
+      const pokemonResponce = await pokeService.getPokeById(id);
+      setPokemon({...pokemon, ...pokemonResponce.data});
       setLoading(false);
     }
     useEffect(() => {
@@ -42,14 +43,23 @@ function PokemonPage() {
                 </div>
             </div>
             <div className="pokemon-page-info">
-                    <p>Name: {pokemon.name}</p>
-                    <p>Base experience: {pokemon.base_experience}</p>
-                    <p>Height: {pokemon.height}</p>
-                    <p>Weight: {pokemon.weight}</p>
-                    {pokemon.abilities.map(abilityId => 
-                        <p key={abilityId.ability.name}>Ability: {abilityId.ability.name}</p>
-                    )}
+                    <ul>About:
+                        <li>Name: {pokemon.name}</li>
+                    </ul>
+
+                    <ul>Params:
+                        <li>Weight: {pokemon.weight}</li>
+                        <li>Height: {pokemon.height}</li>
+                        <li>Base experience: {pokemon.base_experience}</li>                        
+                    </ul>
+                    <ul>
+
+                        Abilities:{pokemon.abilities.map(abilityId => 
+                        <li key={abilityId.ability.name}>{abilityId.ability.name}</li>
+                        )}
+                    </ul>
             </div>
+
         </div>
     )
 }
