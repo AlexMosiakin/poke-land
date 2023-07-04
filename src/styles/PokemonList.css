@@ -14,17 +14,31 @@
     transform: scale(1.05);
 }
 
-.pokemon-list-item > img{
+.pokemon-list-item_image{
     width: 250px;
     height: 250px;
     object-fit: contain;
 }
 
-.pokemon-list-item > p{
+.pokemon-list-item_name{
     margin-top: 15px;
     font-weight: 700;
     font-size: 1.25rem;
     text-transform: capitalize;
+}
+
+.pokemon-list-item_types{
+    display: flex;
+    gap: 15px;
+}
+
+.pokemon-list-item_types_item{
+    margin-top: 15px;
+    font-weight: 500;
+    font-size: 1.25rem;
+    text-transform: capitalize;
+    padding: 5px;
+    border-radius: 7.5px;
 }
 
 .no-pokemons{

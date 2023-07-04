@@ -36,8 +36,9 @@ html,body{
     color: #fff;
 }
 
-.pokemon-list-wrapper{
-
+.pokemon-app__header{
+    cursor: pointer;
+    color: #fff;
 }
 
 .pokemon-list-container{
