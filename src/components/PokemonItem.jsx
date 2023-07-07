@@ -23,14 +23,11 @@ function PokemonItem(props) {
     }
   }, []);
 
-  console.log(pokemon);
-
   const router = useNavigate();
   const dispatch = useDispatch();
 
   const getId = (id) => {
     dispatch({ type: "GET_ID", payload: id });
-    console.log(id);
     router(`/pokemon/${id}`);
   };
 

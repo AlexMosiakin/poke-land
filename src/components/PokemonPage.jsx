@@ -41,10 +41,6 @@ function PokemonPage() {
     }
   }, []);
 
-  console.log(pokemon);
-  console.log(pokemonSpecies);
-  console.log(pokemonEvolution);
-
   return isLoading ? (
     <h5>Loading...</h5>
   ) : (
