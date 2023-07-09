@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import pokeService from "../service/pokeService";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { typeColors } from '../Consts.js'
+import { typeColors } from "../Consts.js";
+import pokeBall from "../img/pokeBall.svg";
 
 function PokemonItem(props) {
-
   const url = props.url;
   const [pokemon, setPokemon] = useState(null);
   const [isLoading, setLoading] = useState(false);
@@ -32,7 +32,10 @@ function PokemonItem(props) {
   };
 
   return isLoading ? (
-    <h5>Loading...</h5>
+    <div className="pokemon-list-item">
+      <img className="pokemon-list-item_image" src={pokeBall} alt={'pokeBall'} />
+      <p className="pokemon-list-item_name">loading</p>
+    </div>
   ) : (
     <div onClick={() => getId(pokemon.id)} className="pokemon-list-item">
       <img
@@ -45,7 +48,7 @@ function PokemonItem(props) {
         {pokemon?.types?.map((item) => (
           <p
             style={{ background: typeColors[item?.type?.name] }}
-            key={pokemon?.name}
+            key={pokemon?.id}
             className="pokemon-list-item_types_item"
           >
             {item?.type?.name}

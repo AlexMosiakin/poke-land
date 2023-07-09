@@ -13,8 +13,8 @@ import pokeService from "../service/pokeService";
 import Input from "./UI/Input/Input";
 
 function PokemonList() {
-  const [offset, setOffest] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [offset, setOffset] = useState(0)
+  const limit = 10
   const [selectedSort, setSelectedSort] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [pokemons, setPokemons] = useState([]);
@@ -30,7 +30,7 @@ function PokemonList() {
   }, [selectedSort, pokemons]);
 
   const sortedAndSearchedPokemons = useMemo(() => {
-    return sortedPokemons.filter((pokemon) =>
+    return sortedPokemons?.filter((pokemon) =>
       pokemon.name.toLowerCase().includes(searchQuery)
     );
   }, [searchQuery, sortedPokemons]);
@@ -41,17 +41,18 @@ function PokemonList() {
     setPokemons([...pokemons, ...responce.data.results]);
     setLoading(false);
   };
+
   useEffect(() => {
-    pokemonsFetch();
-  }, []);
+    if(offset !== 0){
+        pokemonsFetch();
+    }
+  }, [offset]);
 
   const observer = new IntersectionObserver(
     (entries) => {
       if (entries[0].isIntersecting) {
-        console.log("Here we are!");
-        setOffest(prev => prev + 10)
-        setLimit(prev => prev + 10)
-        pokemonsFetch();
+        setOffset(prev => prev + 10)
+        observer.disconnect()
       }
     },
     {
@@ -60,11 +61,17 @@ function PokemonList() {
     }
   );
 
+  useEffect(() => {
+    pokemonsFetch();
+  }, [])
+
   const lastPokemonRef = useRef();
 
   useLayoutEffect(() => {
-    if (!!sortedAndSearchedPokemons.length && !isLoading) {
-      observer.observe(lastPokemonRef.current);
+    if (!!sortedAndSearchedPokemons?.length && !isLoading) {
+      setTimeout(() => {
+        observer.observe(lastPokemonRef.current);
+      }, 500)
     }
   }, [sortedAndSearchedPokemons, isLoading]);
 
@@ -90,12 +97,12 @@ function PokemonList() {
           ]}
         />
       </div>
-      {!!sortedAndSearchedPokemons.length ? (
+      {!!sortedAndSearchedPokemons?.length ? (
         <div className="pokemon-list-container">
           {sortedAndSearchedPokemons.map((pokemon, index) => (
             <div
               ref={
-                index === sortedAndSearchedPokemons.length - 1
+                index === sortedAndSearchedPokemons?.length - 1
                   ? lastPokemonRef
                   : undefined
               }

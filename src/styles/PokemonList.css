@@ -20,11 +20,34 @@
     object-fit: contain;
 }
 
+@keyframes pokeBallAnimation {
+    0% {
+        opacity: 0.2;
+        rotate: 0deg;
+    }
+    50% {
+        opacity: 1;
+        rotate: 180deg;
+    }
+    100% {
+        opacity: 0.2;
+        rotate: 360deg;
+    }
+}
+
+.pokemon-list-item_image.loading{
+    animation: pokeBallAnimation 2s infinite linear;
+}
+
 .pokemon-list-item_name{
     margin-top: 15px;
     font-weight: 700;
     font-size: 1.25rem;
     text-transform: capitalize;
+}
+
+.pokemon-list-item_name.mrBot {
+    margin-bottom: 49px;
 }
 
 .pokemon-list-item_types{

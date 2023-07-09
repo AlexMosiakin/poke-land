@@ -19,3 +19,23 @@ export const typeColors = {
     fairy: "#FFACFF",
     shadow: "#0E2E4C",
 };
+
+export const statsColors = {
+    hp: "#DF2140",
+    attack: "#FF994D",
+    defense: "#eecd3d",
+    'special-attack': "#85DDFF",
+    'special-defense': "#96da83",
+    speed: "#FB94A8",
+    total: "#7195DC",
+};
+
+export const statsTitles = {
+    hp: "HP",
+    attack: "ATK",
+    defense: "DEF",
+    'special-attack': "SpA",
+    'special-defense': "SpD",
+    speed: "SPD",
+    total: "TOT",
+};
