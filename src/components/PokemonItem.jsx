@@ -12,8 +12,8 @@ function PokemonItem(props) {
 
   const pokemonFetch = async () => {
     setLoading(true);
-    const responce = await pokeService.getCurrentPoke(url);
-    setPokemon({ ...pokemon, ...responce.data });
+    const response = await pokeService.getCurrentPoke(url);
+    setPokemon({ ...pokemon, ...response.data });
     setLoading(false);
   };
 

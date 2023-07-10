@@ -149,3 +149,37 @@
     margin-bottom: 15px;
     font-size: 1.25rem;
 }
+
+.pokemon-page-info__evolution_wrapper {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    margin: 1em 0;
+}
+
+.pokemon-page-info__evolution_wrapper_item {
+    cursor: pointer;
+    height: 150px;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #FECA1B;
+    padding: 0.75em 1.5em;
+    border-radius: 0.5em;
+    transition: 0.5s;
+}
+
+.pokemon-page-info__evolution_wrapper_item:hover .pokemon-page-info__evolution_wrapper_item_image {
+    transform: scale(1.1);
+}
+
+.pokemon-page-info__evolution_wrapper_item_image {
+    object-fit: cover;
+    width: 100%;
+    transition: 0.5s;
+}
+
+.pokemon-page-info__evolution_wrapper_item_devider {
+    font-size: 1.5em;
+}

@@ -37,8 +37,8 @@ function PokemonList() {
 
   const pokemonsFetch = async () => {
     setLoading(true);
-    const responce = await pokeService.getAllPoke(offset, limit);
-    setPokemons([...pokemons, ...responce.data.results]);
+    const response = await pokeService.getAllPoke(offset, limit);
+    setPokemons([...pokemons, ...response.data.results]);
     setLoading(false);
   };
 

@@ -1,20 +1,21 @@
-import React, { useState, useEffect, useMemo } from "react";
-import PokemonItem from "./PokemonItem";
-import Select from "./UI/Select/Select";
+import React, { useState, useEffect } from "react";
 import pokeService from "../service/pokeService";
-import Input from "./UI/Input/Input";
-import { useSelector } from "react-redux";
 import "../styles/PokemonPage.css";
 import { typeColors, statsColors, statsTitles } from "../Consts.js";
 import pokeBall from "../img/pokeBall.svg";
 import { useParams } from "react-router";
+import { getPokeIdFromUrl } from "../utils/getPokeIdFromUrl";
+import { getImageUrl } from "./../utils/getImageUrl";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function PokemonPage() {
-  const { id } = useParams()
+  const { id } = useParams();
 
   const [pokemon, setPokemon] = useState(null);
   const [pokemonSpecies, setPokemonSpecies] = useState(null);
   const [pokemonEvolution, setPokemonEvolution] = useState(null);
+  const [pokemonChain, setPokemonChain] = useState([]);
 
   const [isLoading, setLoading] = useState(false);
 
@@ -34,6 +35,29 @@ function PokemonPage() {
       ...pokemonSpecies,
       ...pokemonEvolutionResponse?.data,
     });
+
+    const thirdLevelPokemon =
+      pokemonEvolutionResponse?.data?.chain?.evolves_to[0]?.evolves_to[0]
+        ?.species;
+    const secondLevelPokemon =
+      pokemonEvolutionResponse?.data?.chain.evolves_to[0]?.species;
+    const firstLevelPokemon = pokemonEvolutionResponse?.data?.chain?.species;
+
+    setPokemonChain([
+      firstLevelPokemon
+        ? { ...firstLevelPokemon, id: getPokeIdFromUrl(firstLevelPokemon?.url) }
+        : undefined,
+      secondLevelPokemon
+        ? {
+            ...secondLevelPokemon,
+            id: getPokeIdFromUrl(secondLevelPokemon?.url),
+          }
+        : undefined,
+      thirdLevelPokemon
+        ? { ...thirdLevelPokemon, id: getPokeIdFromUrl(thirdLevelPokemon?.url) }
+        : undefined,
+    ]);
+
     setLoading(false);
   };
 
@@ -41,11 +65,21 @@ function PokemonPage() {
     if (!pokemon) {
       pokemonFetch();
     }
-  }, []);
+  }, [pokemon]);
 
-  const pokemonStatsTotalValue = pokemon?.stats?.reduce((acc, value) => (
-    acc += value?.base_stat
-  ), 0)
+  const pokemonStatsTotalValue = pokemon?.stats?.reduce(
+    (acc, value) => (acc += value?.base_stat),
+    0
+  );
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const getId = (id) => {
+    dispatch({ type: "GET_ID", payload: id });
+    setPokemon(null)
+    navigate(`/pokemon/${id}`);
+  };
 
   return isLoading ? (
     <div className="pokemon-page-wrapper">
@@ -91,9 +125,7 @@ function PokemonPage() {
         <h2>Stats:</h2>
         <div className="pokemon-page-info__params">
           <p className="pokemon-page-info__params_item">
-            <span className="pokemon-page-info__params_item_title">
-              ???
-            </span>
+            <span className="pokemon-page-info__params_item_title">???</span>
           </p>
         </div>
       </div>
@@ -122,23 +154,22 @@ function PokemonPage() {
       <div className="pokemon-page-info">
         <h2>About:</h2>
         <p className="pokemon-page-info__about">
-          {pokemonSpecies?.flavor_text_entries?.[0]?.flavor_text.replace(/[^a-zA-Z ]/g, "")}
+          {pokemonSpecies?.flavor_text_entries?.[0]?.flavor_text.replace(
+            /[^a-zA-Z ]/g,
+            ""
+          )}
         </p>
 
         <h2>Params:</h2>
         <div className="pokemon-page-info__params">
           <p className="pokemon-page-info__params_item">
-            <span className="pokemon-page-info__params_item_title">
-              Weight
-            </span>
+            <span className="pokemon-page-info__params_item_title">Weight</span>
             <span className="pokemon-page-info__params_item_value">
               {pokemon?.weight / 10}kg
             </span>
           </p>
           <p className="pokemon-page-info__params_item">
-            <span className="pokemon-page-info__params_item_title">
-              Height
-            </span>
+            <span className="pokemon-page-info__params_item_title">Height</span>
             <span className="pokemon-page-info__params_item_value">
               {pokemon?.height}m
             </span>
@@ -168,11 +199,11 @@ function PokemonPage() {
         <h2>Stats:</h2>
         <div className="pokemon-page-info__stats">
           {pokemon?.stats?.map((stat) => (
-            <p
-              className="pokemon-page-info__stats_item"
-              key={stat?.stat?.name}
-            >
-              <span className="pokemon-page-info__stats_item_title" style={{ background: statsColors[stat?.stat?.name] }}>
+            <p className="pokemon-page-info__stats_item" key={stat?.stat?.name}>
+              <span
+                className="pokemon-page-info__stats_item_title"
+                style={{ background: statsColors[stat?.stat?.name] }}
+              >
                 {statsTitles[stat?.stat?.name]}
               </span>
               <span className="pokemon-page-info__stats_item_value">
@@ -180,16 +211,42 @@ function PokemonPage() {
               </span>
             </p>
           ))}
-          <p
-              className="pokemon-page-info__stats_item"
+          <p className="pokemon-page-info__stats_item">
+            <span
+              className="pokemon-page-info__stats_item_title"
+              style={{ background: statsColors["total"] }}
             >
-              <span className="pokemon-page-info__stats_item_title" style={{ background: statsColors['total'] }}>
-                {statsTitles['total']}
-              </span>
-              <span className="pokemon-page-info__stats_item_value">
-                {pokemonStatsTotalValue}
-              </span>
-            </p>
+              {statsTitles["total"]}
+            </span>
+            <span className="pokemon-page-info__stats_item_value">
+              {pokemonStatsTotalValue}
+            </span>
+          </p>
+        </div>
+        <h2>Evolution:</h2>
+        <div className="pokemon-page-info__evolution_wrapper">
+          {pokemonChain.filter(chain => (chain?.name !== undefined)).map((evPoke, index) =>
+            evPoke ? (
+              <>
+                <div
+                  className="pokemon-page-info__evolution_wrapper_item"
+                  key={evPoke?.name}
+                  onClick={() => getId(evPoke?.id)}
+                >
+                  <img
+                    className="pokemon-page-info__evolution_wrapper_item_image"
+                    src={getImageUrl(evPoke?.id)}
+                    alt={evPoke?.name}
+                  />
+                </div>
+                {index !== pokemonChain.filter(chain => (chain?.name !== undefined)).length - 1  ? (
+                  <div className="pokemon-page-info__evolution_wrapper_item_devider">
+                    ➜
+                  </div>
+                ) : null}
+              </>
+            ) : null
+          )}
         </div>
       </div>
     </div>
