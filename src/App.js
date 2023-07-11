@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PokemonList from "./components/PokemonList";
-import pokeService from "./service/pokeService";
 import "../src/styles/App.css"
-import Select from './components/UI/Select/Select'
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import PokemonPage from "./components/PokemonPage";
 
 function App() {

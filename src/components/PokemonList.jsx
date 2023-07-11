@@ -4,7 +4,6 @@ import React, {
   useMemo,
   useRef,
   useCallback,
-  useLayoutEffect,
 } from "react";
 import "../styles/PokemonList.css";
 import PokemonItem from "./PokemonItem";
@@ -13,8 +12,8 @@ import pokeService from "../service/pokeService";
 import Input from "./UI/Input/Input";
 
 function PokemonList() {
-  const [offset, setOffset] = useState(0)
   const limit = 10
+  const [offset, setOffset] = useState(0)
   const [selectedSort, setSelectedSort] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [pokemons, setPokemons] = useState([]);
@@ -42,11 +41,9 @@ function PokemonList() {
     setLoading(false);
   };
 
-  useEffect(() => {
-    if(offset !== 0){
-        pokemonsFetch();
-    }
-  }, [offset]);
+  const sortPokemons = useCallback((sort) => {
+    setSelectedSort(sort);
+  }, [])
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -63,21 +60,17 @@ function PokemonList() {
 
   useEffect(() => {
     pokemonsFetch();
-  }, [])
+  }, [offset]);
 
   const lastPokemonRef = useRef();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!!sortedAndSearchedPokemons?.length && !isLoading) {
       setTimeout(() => {
         observer.observe(lastPokemonRef.current);
       }, 500)
     }
   }, [sortedAndSearchedPokemons, isLoading]);
-
-  const sortPokemons = (sort) => {
-    setSelectedSort(sort);
-  };
 
   return (
     <div className="pokemon-list-wrapper">

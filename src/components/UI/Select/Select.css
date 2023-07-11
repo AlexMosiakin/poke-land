@@ -14,3 +14,21 @@
 .select:focus{
     outline: none;
 }
+
+@media screen and (max-width: 768px) {
+    .select{
+        width: auto;
+        flex: 1;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .select{
+        width: 60px;
+        height: 60px;
+        padding: 10px;
+        text-align: center;
+        flex: 0;
+    }
+}
+

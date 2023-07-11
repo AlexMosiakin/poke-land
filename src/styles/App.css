@@ -50,3 +50,15 @@ html,body{
     padding: 30px 0;
 }
 
+@media screen and (max-width: 1024px) {
+    .pokemon-list-container{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+@media screen and (max-width: 650px) {
+    .pokemon-list-container{
+        grid-template-columns: 1fr;
+    }
+}

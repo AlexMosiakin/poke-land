@@ -1,5 +1,5 @@
 .input{
-    width: 500px;
+    width: 35%;
     height: 50px;
     font-weight: 700;
     font-size: 1rem;
@@ -17,4 +17,20 @@
 
 .input:focus{
     outline: none;
+}
+
+@media screen and (max-width: 768px) {
+    .input{
+        width: auto;
+        flex: 1;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .input{
+        height: 60px;
+        flex: auto;
+        width: 100%;
+        padding: 10px;
+    }
 }

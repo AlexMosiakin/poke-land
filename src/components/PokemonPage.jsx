@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import pokeService from "../service/pokeService";
 import "../styles/PokemonPage.css";
 import { typeColors, statsColors, statsTitles } from "../Consts.js";
@@ -11,12 +11,12 @@ import { useNavigate } from "react-router-dom";
 
 function PokemonPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [pokemon, setPokemon] = useState(null);
   const [pokemonSpecies, setPokemonSpecies] = useState(null);
-  const [pokemonEvolution, setPokemonEvolution] = useState(null);
   const [pokemonChain, setPokemonChain] = useState([]);
-
   const [isLoading, setLoading] = useState(false);
 
   const pokemonFetch = async () => {
@@ -31,10 +31,6 @@ function PokemonPage() {
       await pokeService.getPokeEvolutionByChainUrl(
         pokemonSpeciesResponse?.data?.evolution_chain?.url
       );
-    setPokemonEvolution({
-      ...pokemonSpecies,
-      ...pokemonEvolutionResponse?.data,
-    });
 
     const thirdLevelPokemon =
       pokemonEvolutionResponse?.data?.chain?.evolves_to[0]?.evolves_to[0]
@@ -61,25 +57,25 @@ function PokemonPage() {
     setLoading(false);
   };
 
+  const pokemonStatsTotalValue = useMemo(() => {
+    return pokemon?.stats?.reduce(
+      (acc, value) => (acc += value?.base_stat),
+      0
+    );
+  }, [pokemon])
+
+  const getId = useCallback((id) => {
+      setPokemon(null)
+      dispatch({ type: "GET_ID", payload: id });
+      navigate(`/pokemon/${id}`);
+  }, [id])
+
+
   useEffect(() => {
     if (!pokemon) {
       pokemonFetch();
     }
   }, [pokemon]);
-
-  const pokemonStatsTotalValue = pokemon?.stats?.reduce(
-    (acc, value) => (acc += value?.base_stat),
-    0
-  );
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const getId = (id) => {
-    dispatch({ type: "GET_ID", payload: id });
-    setPokemon(null)
-    navigate(`/pokemon/${id}`);
-  };
 
   return isLoading ? (
     <div className="pokemon-page-wrapper">
@@ -134,7 +130,7 @@ function PokemonPage() {
     <div className="pokemon-page-wrapper">
       <div className="pokemon-page-header">
         <img
-          className="pokemon-list-item_image"
+          className="pokemon-list-item_image page"
           src={pokemon?.sprites?.other?.dream_world?.front_default}
           alt={pokemon?.name}
         />

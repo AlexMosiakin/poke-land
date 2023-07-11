@@ -7,6 +7,9 @@ import pokeBall from "../img/pokeBall.svg";
 
 function PokemonItem(props) {
   const url = props.url;
+  const router = useNavigate();
+  const dispatch = useDispatch();
+
   const [pokemon, setPokemon] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
@@ -17,19 +20,16 @@ function PokemonItem(props) {
     setLoading(false);
   };
 
+  const getId = (id) => {
+    dispatch({ type: "GET_ID", payload: id });
+    router(`/pokemon/${id}`);
+  };
+
   useEffect(() => {
     if (!pokemon) {
       pokemonFetch(url);
     }
   }, []);
-
-  const router = useNavigate();
-  const dispatch = useDispatch();
-
-  const getId = (id) => {
-    dispatch({ type: "GET_ID", payload: id });
-    router(`/pokemon/${id}`);
-  };
 
   return isLoading ? (
     <div className="pokemon-list-item">
