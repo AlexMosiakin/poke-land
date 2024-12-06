@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/poke-land/static/css/main.cf6d8a24.css",
-    "main.js": "/poke-land/static/js/main.301ba03c.js",
+    "main.css": "/poke-land/static/css/main.b2256a17.css",
+    "main.js": "/poke-land/static/js/main.90138211.js",
     "index.html": "/poke-land/index.html",
     "static/media/pokeBall.svg": "/poke-land/static/media/pokeBall.755aaedd5ad645e88461954071e071ef.svg",
-    "main.cf6d8a24.css.map": "/poke-land/static/css/main.cf6d8a24.css.map",
-    "main.301ba03c.js.map": "/poke-land/static/js/main.301ba03c.js.map"
+    "main.b2256a17.css.map": "/poke-land/static/css/main.b2256a17.css.map",
+    "main.90138211.js.map": "/poke-land/static/js/main.90138211.js.map"
   },
   "entrypoints": [
-    "static/css/main.cf6d8a24.css",
-    "static/js/main.301ba03c.js"
+    "static/css/main.b2256a17.css",
+    "static/js/main.90138211.js"
   ]
 }
