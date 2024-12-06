@@ -67,7 +67,7 @@ function PokemonPage() {
   const getId = useCallback((id) => {
       setPokemon(null)
       dispatch({ type: "GET_ID", payload: id });
-      navigate(`/pokemon/${id}`);
+      navigate(`/poke-land/pokemon/${id}`);
   }, [id])
 
 

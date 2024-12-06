@@ -8,13 +8,13 @@ function App() {
   const navigate = useNavigate()
   return (
     <div className="pokemon-app">
-      <div onClick={() => navigate('/')} className="pokemon-app__header">
+      <div onClick={() => navigate('/poke-land')} className="pokemon-app__header">
         <h1>PokeLand</h1>
       </div>
       <Routes>
-        <Route exact path="/" element={<PokemonList/>}/>
-        <Route exact path='/pokemon/:id' element={<PokemonPage/>}/>
-        <Route path="*" element={<Navigate to="/" />}/>
+        <Route exact path="/poke-land" element={<PokemonList/>}/>
+        <Route exact path='/poke-land/pokemon/:id' element={<PokemonPage/>}/>
+        <Route path="*" element={<Navigate to="/poke-land" />}/>
       </Routes>
     </div>
   );

@@ -99,6 +99,7 @@ function PokemonList() {
                   ? lastPokemonRef
                   : undefined
               }
+              key={pokemon.name}
             >
               <PokemonItem key={pokemon.name} url={pokemon.url} />
             </div>

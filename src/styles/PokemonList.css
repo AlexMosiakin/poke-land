@@ -19,6 +19,7 @@
     width: 60%;
     height: 60%;
     object-fit: contain;
+    min-height: 145px;
 }
 
 .pokemon-list-item_image.page{

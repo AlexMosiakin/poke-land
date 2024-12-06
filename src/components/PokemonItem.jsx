@@ -22,8 +22,18 @@ function PokemonItem(props) {
 
   const getId = (id) => {
     dispatch({ type: "GET_ID", payload: id });
-    router(`/pokemon/${id}`);
+    router(`/poke-land/pokemon/${id}`);
   };
+
+  const getTypeColorElement = (pokemon) => (
+    <p
+      style={{ background: typeColors[pokemon?.type?.name || "normal"]}}
+      key={pokemon?.id || "loading"}
+      className="pokemon-list-item_types_item"
+    >
+      {pokemon?.type?.name || "loading"}
+    </p>
+  )
 
   useEffect(() => {
     if (!pokemon) {
@@ -31,32 +41,21 @@ function PokemonItem(props) {
     }
   }, []);
 
-  return isLoading ? (
-    <div className="pokemon-list-item">
-      <img className="pokemon-list-item_image" src={pokeBall} alt={'pokeBall'} />
-      <p className="pokemon-list-item_name">loading</p>
-    </div>
-  ) : (
+  return (
     <div onClick={() => getId(pokemon.id)} className="pokemon-list-item">
       <img
         className="pokemon-list-item_image"
-        src={pokemon?.sprites?.other?.dream_world?.front_default}
+        src={pokemon?.sprites?.other?.dream_world?.front_default || pokeBall}
         alt={pokemon?.name}
       />
-      <p className="pokemon-list-item_name">{pokemon?.name}</p>
+      <p className="pokemon-list-item_name">{pokemon?.name || "loading"}</p>
       <div className="pokemon-list-item_types">
-        {pokemon?.types?.map((item) => (
-          <p
-            style={{ background: typeColors[item?.type?.name] }}
-            key={pokemon?.id}
-            className="pokemon-list-item_types_item"
-          >
-            {item?.type?.name}
-          </p>
-        ))}
+        {pokemon?.types.length ? pokemon?.types.map((item) => (
+          getTypeColorElement(item)
+        )) : getTypeColorElement()}
       </div>
     </div>
-  );
+  )
 }
 
 export default PokemonItem;
