@@ -1,31 +1,26 @@
-# PokeLand using by pokeapi
-# Установка
+# PokeLand
 
-Для запуска на ПК должны быть установлены:
-[Node.js](https://nodejs.org/);
-[Yarn](https://yarnpkg.com/);
-[Git](https://git-scm.com/);
+PokeLand is a React-based web application that utilizes the PokeAPI to provide users with detailed information about various Pokémon species.
 
-Склонируйте репозиторий
+**Live Demo:** [PokeLand](https://alexmosiakin.github.io/poke-land/)
 
-```sh
-git clone https://github.com/AlexMosiakin/poke-land.git
-```
+## ✨ Features
 
-### Настройка фронтенд части
+- **Pokémon Catalog:** Browse through a comprehensive list of Pokémon with their images and basic details.
+- **Search Functionality:** Quickly find specific Pokémon by name or ID.
+- **Detailed View:** Click on a Pokémon to view more detailed information, including type, abilities, stats, and evolutions.
+- **Responsive Design:** Optimized for various devices, ensuring a seamless experience on desktops, tablets, and mobile phones.
 
-Из корня проекта сделайте установку необходимых зависимостей
+## 🛠️ Technologies Used
 
-```sh
-yarn install
-```
+- **Frontend:**
+  - [React](https://reactjs.org/) – A JavaScript library for building user interfaces.
+  - [JavaScript (ES6+)](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – Programming language of the web.
+  - [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS) – Styling the application.
+  - [HTML5](https://developer.mozilla.org/en-US/docs/Web/HTML) – Markup language for structuring web content.
+- **API:**
+  - [PokeAPI](https://pokeapi.co/) – A RESTful API for accessing Pokémon data.
+ 
+## 📝 License
 
-Убедитесь, что в редакторе (если у вас VS Code) установлены:
-[Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode);
-[ESlint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-
-Запустите проект
-
-```sh
-yarn start
-```
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
